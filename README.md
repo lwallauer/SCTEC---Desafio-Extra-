@@ -5,8 +5,6 @@ Este projeto executa uma **Análise Exploratória de Dados (AED)** simples (nív
 - Dataset: **Uber Data Analytics Dashboard**
 - Link: https://www.kaggle.com/datasets/yashdevladdha/uber-ride-analytics-dashboard/data
 
-
-
 ---
 
 ## 1) Estrutura do projeto
@@ -14,14 +12,14 @@ Este projeto executa uma **Análise Exploratória de Dados (AED)** simples (nív
 ```
 uber_aed_project/
   data/
-    raw/                 # ncr_ride_bookings
+    raw/                 # ncr_ride_bookings.csv
     processed/           # saída: base limpa
   outputs/
     figures/             # gráficos gerados (PNG)
     report.md            # relatório automático (Markdown)
   src/
     eda_uber.py          # script principal de AED
-  requirements.txt
+  requirements.txt       # dependências
 ```
 
 ---
@@ -50,6 +48,18 @@ Ao final, o script gera:
 - `outputs/report.md`
 
 ---
+
+## (Opcional) Baixar o dataset automaticamente com `kagglehub`
+
+Se você preferir não baixar manualmente pelo site, pode usar o script abaixo (na sua máquina):
+
+```bash
+pip install kagglehub
+python src/download_dataset.py
+```
+
+Isso vai copiar os CSVs do dataset para `data/raw/`.
+
 
 ## 3) O que a AED analisa (visão geral)
 
@@ -87,4 +97,38 @@ O script:
 2. Rode o script para gerar `outputs/` e `data/processed/`.
 3. Compacte a pasta do projeto inteira em `.zip` ou `.rar`, garantindo que o tamanho final fique <= 20 MB.
 
+Dica: se o dataset for grande, verifique o limite do trabalho e, se necessário, inclua apenas o CSV principal (ou uma amostra justificada) **se o professor permitir**.
+
+---
+
+## 6) Notebook do Kaggle (execução no ambiente Kaggle)
+
+Este projeto também inclui o notebook `notebooks/uber-analytics.ipynb`, que pode ser importado no Kaggle e executado usando o dataset como *Input*.
+
+**Dica (Kaggle):**
+- Depois de adicionar o dataset como *Input*, o Kaggle monta os arquivos em `/kaggle/input/<nome-do-dataset>/`.
+- Neste dataset, o CSV principal é `ncr_ride_bookings.csv`.
+- Exemplo de leitura no Kaggle:
+
+```python
+import pandas as pd
+csv_path = "/kaggle/input/datasets/yashdevladdha/uber-ride-analytics-dashboard/ncr_ride_bookings.csv"
+df = pd.read_csv(csv_path)
+```
+
+---
+
+## 7) Checklist de conformidade com a entrega
+
+Dentro do `.zip` você encontrará:
+- **Código-fonte:** `src/eda_uber.py` (pipeline AED) + `src/download_dataset.py` (coleta via kagglehub, opcional)
+- **Dataset utilizado:** `data/raw/ncr_ride_bookings.csv`
+- **Visualizações geradas:** `outputs/figures/*.png` (geradas ao rodar o script)
+- **Documentação:** `README.md` (este arquivo) + `outputs/report.md` (relatório automático)
+- **Artefatos adicionais (do dataset):** `outputs/Uber.pbix` e `outputs/dashboard.gif`
+
+Para reproduzir do zero:
+1. (Opcional) rode `python src/download_dataset.py` **ou** coloque o CSV em `data/raw/`
+2. rode `python src/eda_uber.py --data_dir data/raw --out_dir outputs`
+3. verifique `outputs/figures/` e `outputs/report.md`
 
